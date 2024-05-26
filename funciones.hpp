@@ -60,46 +60,52 @@ string super_string::stringizar() {
 
 void super_string::separar(int i, super_string &a, super_string &b) {
     super_string temp;
+    string oracion_temportal;
     for (int j = 0; j < i; j++) {
-        cout << root->c << endl;
         temp.agregar(root->c);
         root = root->right;
     }
 
     if (i != length) {
         for (int k = i; k < length; k++) {
-            cout << root->c << endl;
             b.agregar(root->c);
             root = root->right;
         }
     }
     a.limpiar();
-    a = temp;
+    oracion_temportal = temp.stringizar();
+    for (size_t i = 0; i < oracion_temportal.length(); i++) {
+        a.agregar(oracion_temportal[i]);
+    }
     temp.limpiar();
 }
 
 void super_string::limpiar() {
-    nodo *temp = root;
-    while (temp != nullptr) {
-        nodo *temp2 = temp;
-        temp = temp->right;
-        delete temp2;
+    if (root != nullptr) {
+        nodo *temp = root;
+        while (temp != nullptr) {
+            nodo *temp2 = temp;
+            temp = temp->right;
+            delete temp2;
+        }
+        root = nullptr;
+        length = 0;
+        height = 0;
     }
-    root = nullptr;
-    length = 0;
-    height = 0;
 }
 
 void super_string::juntar(super_string &s) {
-    nodo *temp = root;
-    while (temp->right != nullptr) {
-        temp = temp->right;
+    if (s.root != nullptr) {
+        nodo *temp = root;
+        while (temp->right != nullptr) {
+            temp = temp->right;
+        }
+        temp->right = s.root;
+        s.root->left = temp;
+        length += s.length;
+        s.length = 0;
+        s.root = nullptr;
     }
-    temp->right = s.root;
-    s.root->left = temp;
-    length += s.length;
-    s.length = 0;
-    s.root = nullptr;
 }
 /*
 void super_string::reverso() {

@@ -31,11 +31,12 @@ int main() {
         } else if (linea == "ELIMINAR") {
             fp >> pos_inicial;
             fp >> pos_final;
-            //cout << "[" << pos_inicial << "," << pos_final <<"]" << endl;
             super_string.separar(pos_inicial, super_string, super_string_2);
             super_string_2.separar(pos_final - pos_inicial + 1, super_string_2, super_string_3);
+            super_string.juntar(super_string_3);
+            super_string_2.limpiar();
             super_string_3.limpiar();
-            super_string.juntar(super_string_2);
+
         } /*else if (linea == "REVERSO") {
             fp >> pos_inicial;
             fp >> pos_final;
