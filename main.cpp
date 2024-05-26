@@ -37,14 +37,17 @@ int main() {
             super_string_2.limpiar();
             super_string_3.limpiar();
 
-        } /*else if (linea == "REVERSO") {
+        } else if (linea == "REVERSO") {
             fp >> pos_inicial;
             fp >> pos_final;
-            cout << "[" << pos_inicial << "," << pos_final <<"]" << endl;
-            //super_string.reverso();
-        } else if (linea == "RECORTAR") {
-            //super_string.recortar();
-        }*/
+            super_string.separar(pos_inicial, super_string, super_string_2);
+            super_string_2.separar(pos_final - pos_inicial + 1, super_string_2, super_string_3);
+            super_string_2.reverso();
+            super_string.juntar(super_string_2);
+            super_string.juntar(super_string_3);
+        }else if (linea == "RECORTAR") {
+            //cout << super_string.recortar() << endl;
+        }
         fp >> linea;
     }
 

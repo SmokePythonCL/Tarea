@@ -24,6 +24,8 @@ class super_string {
         int recortar(); // Retorna this->height después de recortar
         string stringizar(); // Debe ser O(n)
         void limpiar(); // Se deben borrar todos los nodos del super-string
+
+        int largo();
 };
 
 void super_string::agregar(char letra) {
@@ -41,8 +43,6 @@ void super_string::agregar(char letra) {
         temp->right = new nodo();
         temp->right->c = letra;
         temp->right->index = length;
-
-        temp->right->left = temp;
 
         length++;
     }
@@ -89,31 +89,88 @@ void super_string::limpiar() {
             delete temp2;
         }
         root = nullptr;
-        length = 0;
-        height = 0;
     }
+
+    length = 0;
+    height = 0;
 }
 
 void super_string::juntar(super_string &s) {
     if (s.root != nullptr) {
-        nodo *temp = root;
-        while (temp->right != nullptr) {
-            temp = temp->right;
+        if (length == 0) {
+            root = new nodo();
+            root->c = s.root->c;
+            root->right = s.root->right;
+            length += s.length;
+            s.length = 0;
+            s.root = nullptr;
+        } else {
+            nodo *temp = root;
+            while (temp->right != nullptr) {
+                temp = temp->right;
+            }
+            temp->right = s.root;
+            length += s.length;
+            s.length = 0;
+            s.root = nullptr;
         }
-        temp->right = s.root;
-        s.root->left = temp;
-        length += s.length;
-        s.length = 0;
-        s.root = nullptr;
     }
 }
-/*
+
 void super_string::reverso() {
+    //Arreglar
+    string oracion_temporal, oracion;
+    nodo *nodo_temp = root;
+    while (nodo_temp->right != nullptr) {
+        oracion += nodo_temp->c;
+        nodo_temp = nodo_temp->right;
+    }
+    oracion += nodo_temp->c;
+    
+    for (size_t i = oracion.size(); i > 0 ; i--) {
+        oracion_temporal += oracion[i];
+    }
+
+    oracion_temporal += oracion[0];
+
+    if (root != nullptr) {
+        nodo *nodo_temp = root;
+        while (nodo_temp != nullptr) {
+            nodo *nodo_temp2 = nodo_temp;
+            nodo_temp = nodo_temp->right;
+            delete nodo_temp2;
+        }
+        root = nullptr;
+        length = 0;
+        height = 0;
+    }
+
+    for (size_t i = 0; i < oracion_temporal.length(); i++) {
+        if (root == nullptr) {
+            root = new nodo();
+            root->c = oracion_temporal[i];
+            root->index = 0;
+
+            length++;
+        } else {
+            nodo *temp = root;
+            while (temp->right != nullptr) {
+                temp = temp->right;
+            }
+            temp->right = new nodo();
+            temp->right->c = oracion_temporal[i];
+            temp->right->index = length;
+
+            length++;
+        }
+    }
 }
 
 int super_string::recortar() {
+
 }
 
 
-
-*/
+int super_string::largo() {
+    return length;
+}
