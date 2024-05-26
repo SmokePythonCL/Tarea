@@ -7,7 +7,7 @@ using namespace std;
 int main() {
     ifstream fp;
     string linea, oracion;
-    super_string super_string;
+    super_string super_string, super_string_2, super_string_3;
     int pos_trabajo, pos_inicial, pos_final;
     fp.open("Prueba_1.txt");
 
@@ -22,26 +22,28 @@ int main() {
         if (linea == "INSERTAR") {
             fp >> pos_trabajo;
             fp >> linea;
-            cout << "[" << pos_trabajo << "," << linea <<"]" << endl;
-            //for (int i = 0; i < linea.size(); i++) {
-                //super_string.agregar(linea[i]);
-            //}
+            for (size_t i = 0; i < linea.length(); i++) {
+                super_string.agregar(linea[i]);
+            }
         } else if (linea == "MOSTRAR") {
-            //oracion = super_string.stringizar();
+            oracion = super_string.stringizar();
             cout << oracion << endl;
         } else if (linea == "ELIMINAR") {
             fp >> pos_inicial;
             fp >> pos_final;
-            cout << "[" << pos_inicial << "," << pos_final <<"]" << endl;
-            //super_string.eliminar();
-        } else if (linea == "REVERSO") {
+            //cout << "[" << pos_inicial << "," << pos_final <<"]" << endl;
+            super_string.separar(pos_inicial, super_string, super_string_2);
+            super_string_2.separar(pos_final - pos_inicial + 1, super_string_2, super_string_3);
+            super_string_3.limpiar();
+            super_string.juntar(super_string_2);
+        } /*else if (linea == "REVERSO") {
             fp >> pos_inicial;
             fp >> pos_final;
             cout << "[" << pos_inicial << "," << pos_final <<"]" << endl;
             //super_string.reverso();
         } else if (linea == "RECORTAR") {
             //super_string.recortar();
-        }
+        }*/
         fp >> linea;
     }
 

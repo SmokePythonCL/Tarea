@@ -25,24 +25,89 @@ class super_string {
         string stringizar(); // Debe ser O(n)
         void limpiar(); // Se deben borrar todos los nodos del super-string
 };
-/*
-void super_string::agregar(char c) {
+
+void super_string::agregar(char letra) {
+    if (root == nullptr) {
+        root = new nodo();
+        root->c = letra;
+        root->index = 0;
+
+        length++;
+    } else {
+        nodo *temp = root;
+        while (temp->right != nullptr) {
+            temp = temp->right;
+        }
+        temp->right = new nodo();
+        temp->right->c = letra;
+        temp->right->index = length;
+
+        temp->right->left = temp;
+
+        length++;
+    }
 }
 
-void super_string::juntar(super_string &s) {
+string super_string::stringizar() {
+    string oracion;
+    nodo *temp = root;
+    while (temp != nullptr) {
+        oracion += temp->c;
+        temp = temp->right;
+    }
+    return oracion;
 }
 
 void super_string::separar(int i, super_string &a, super_string &b) {
+    super_string temp;
+    for (int j = 0; j < i; j++) {
+        cout << root->c << endl;
+        temp.agregar(root->c);
+        root = root->right;
+    }
+
+    if (i != length) {
+        for (int k = i; k < length; k++) {
+            cout << root->c << endl;
+            b.agregar(root->c);
+            root = root->right;
+        }
+    }
+    a.limpiar();
+    a = temp;
+    temp.limpiar();
 }
 
+void super_string::limpiar() {
+    nodo *temp = root;
+    while (temp != nullptr) {
+        nodo *temp2 = temp;
+        temp = temp->right;
+        delete temp2;
+    }
+    root = nullptr;
+    length = 0;
+    height = 0;
+}
+
+void super_string::juntar(super_string &s) {
+    nodo *temp = root;
+    while (temp->right != nullptr) {
+        temp = temp->right;
+    }
+    temp->right = s.root;
+    s.root->left = temp;
+    length += s.length;
+    s.length = 0;
+    s.root = nullptr;
+}
+/*
 void super_string::reverso() {
 }
 
 int super_string::recortar() {
 }
 
-string super_string::stringizar() {
-}
 
-void limpiar() {
-}*/
+
+*/
