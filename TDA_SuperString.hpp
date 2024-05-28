@@ -57,23 +57,6 @@ string super_string::stringizar() {
     return oracion;
 }
 
-void super_string::inOrder(nodo* node, string& oracion) {
-    if (node != nullptr) {
-        inOrder(node->left, oracion);
-        oracion += node->c;
-        inOrder(node->right, oracion);
-    }
-}
-
-void super_string::inOrderReverso(nodo* node, super_string& temp) {
-    if (node != nullptr) {
-        inOrderReverso(node->right, temp);
-        temp.agregar(node->c);
-        inOrderReverso(node->left, temp);
-    }
-}
-
-
 void super_string::separar(int i, super_string &a, super_string &b) {
     super_string temp;
     string oracion_temportal;
@@ -149,4 +132,20 @@ int super_string::recortar() {
 
 int super_string::largo() {
     return length;
+}
+
+void super_string::inOrder(nodo* node, string& oracion) {
+    if (node != nullptr) {
+        inOrder(node->left, oracion);
+        oracion += node->c;
+        inOrder(node->right, oracion);
+    }
+}
+
+void super_string::inOrderReverso(nodo* node, super_string& temp) {
+    if (node != nullptr) {
+        inOrderReverso(node->right, temp);
+        temp.agregar(node->c);
+        inOrderReverso(node->left, temp);
+    }
 }
