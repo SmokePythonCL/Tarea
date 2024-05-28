@@ -25,8 +25,7 @@ class super_string {
         string stringizar(); // Debe ser O(n)
         void limpiar(); // Se deben borrar todos los nodos del super-string
 
-        int largo();
-        void inOrder(nodo* node, string& oracion);
+        void inOrderStringizar(nodo* node, string& oracion);
         void inOrderReverso(nodo* node, super_string& temp);
 };
 
@@ -53,7 +52,7 @@ void super_string::agregar(char letra) {
 
 string super_string::stringizar() {
     string oracion;
-    inOrder(root, oracion);
+    inOrderStringizar(root, oracion);
     return oracion;
 }
 
@@ -129,16 +128,11 @@ int super_string::recortar() {
     return 1;
 }
 
-
-int super_string::largo() {
-    return length;
-}
-
-void super_string::inOrder(nodo* node, string& oracion) {
+void super_string::inOrderStringizar(nodo* node, string& oracion) {
     if (node != nullptr) {
-        inOrder(node->left, oracion);
+        inOrderStringizar(node->left, oracion);
         oracion += node->c;
-        inOrder(node->right, oracion);
+        inOrderStringizar(node->right, oracion);
     }
 }
 
