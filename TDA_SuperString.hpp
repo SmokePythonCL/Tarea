@@ -7,7 +7,7 @@ class super_string {
             nodo *left = nullptr, *right = nullptr;
             int index;
             char c;
-            nodo(int index, char c) {}
+            nodo(int index, char c) : index(index), c(c) {}
             nodo(){}
         };
         int height = 0;       // Altura del árbol
@@ -31,9 +31,7 @@ class super_string {
 
 void super_string::agregar(char letra) {
     if (root == nullptr) {
-        root = new nodo();
-        root->c = letra;
-        root->index = 0;
+        root = new nodo(0, letra);
 
         length++;
     } else {
@@ -41,9 +39,7 @@ void super_string::agregar(char letra) {
         while (temp->right != nullptr) {
             temp = temp->right;
         }
-        temp->right = new nodo();
-        temp->right->c = letra;
-        temp->right->index = length;
+        temp->right = new nodo(length, letra);
 
         length++;
     }
@@ -58,7 +54,6 @@ string super_string::stringizar() {
 
 void super_string::separar(int i, super_string &a, super_string &b) {
     super_string temp;
-    string oracion_temportal;
     for (int j = 0; j < i; j++) {
         temp.agregar(root->c);
         root = root->right;
@@ -70,12 +65,13 @@ void super_string::separar(int i, super_string &a, super_string &b) {
             root = root->right;
         }
     }
+
     a.limpiar();
-    oracion_temportal = temp.stringizar();
-    for (size_t i = 0; i < oracion_temportal.length(); i++) {
-        a.agregar(oracion_temportal[i]);
+    if (temp.root != nullptr) {
+        a.root = new nodo(0, temp.root->c);
+        a.root->right = temp.root->right;
+        a.length = temp.length;
     }
-    temp.limpiar();
 }
 
 void super_string::limpiar() {
@@ -96,10 +92,9 @@ void super_string::limpiar() {
 void super_string::juntar(super_string &s) {
     if (s.root != nullptr) {
         if (length == 0) {
-            root = new nodo();
-            root->c = s.root->c;
+            root = new nodo(0, s.root->c);
             root->right = s.root->right;
-            length += s.length;
+            length = s.length;
             s.length = 0;
             s.root = nullptr;
         } else {
@@ -120,8 +115,6 @@ void super_string::reverso() {
     inOrderReverso(root, temp);
     limpiar();
     root = temp.root;
-    temp.root = nullptr;
-    temp.length = 0;
 }
 
 int super_string::recortar() {

@@ -32,8 +32,6 @@ void eliminar(super_string &super_string_principal, int pos_inicial, int pos_fin
     super_string_principal.separar(pos_inicial, super_string_principal, super_string_2);
     super_string_2.separar(pos_final - pos_inicial + 1, super_string_2, super_string_3);
     super_string_principal.juntar(super_string_3);
-    //super_string_2.limpiar();
-    //super_string_3.limpiar();
 }
 
 int main() {
@@ -67,7 +65,7 @@ int main() {
             fp >> pos_final;
             reverso(super_string_principal, pos_inicial, pos_final);
         }else if (linea == "RECORTAR") {
-            //cout << super_string.recortar() << endl;
+            cout << super_string_principal.recortar() << endl;
         }
         fp >> linea;
     }
