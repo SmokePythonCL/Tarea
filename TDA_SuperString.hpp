@@ -27,6 +27,10 @@ class super_string {
 
         void inOrderStringizar(nodo* node, string& oracion);
         void inOrderReverso(nodo* node, super_string& temp);
+        void inOrderSeparar(nodo* node, super_string& a, super_string& b, int i);
+        void inOrderTransversal(nodo* node, nodo** nodes, int& i);
+        super_string::nodo* buildBalancedTree(nodo** nodes, int start, int end);
+        int Altura(nodo* node);
 };
 
 void super_string::agregar(char letra) {
@@ -54,17 +58,8 @@ string super_string::stringizar() {
 
 void super_string::separar(int i, super_string &a, super_string &b) {
     super_string temp;
-    for (int j = 0; j < i; j++) {
-        temp.agregar(root->c);
-        root = root->right;
-    }
 
-    if (i != length) {
-        for (int k = i; k < length; k++) {
-            b.agregar(root->c);
-            root = root->right;
-        }
-    }
+    inOrderSeparar(a.root, temp, b, i);
 
     a.limpiar();
     if (temp.root != nullptr) {
@@ -118,7 +113,14 @@ void super_string::reverso() {
 }
 
 int super_string::recortar() {
-    return 1;
+    nodo** nodes = new nodo*[length];
+    int i = 0;
+    inOrderTransversal(root, nodes, i);
+    root = buildBalancedTree(nodes, 0, length - 1);
+    height = Altura(root);
+    delete[] nodes;
+
+    return height;
 }
 
 void super_string::inOrderStringizar(nodo* node, string& oracion) {
@@ -129,10 +131,47 @@ void super_string::inOrderStringizar(nodo* node, string& oracion) {
     }
 }
 
+void super_string::inOrderSeparar(nodo* node, super_string& a, super_string& b, int i) {
+    if (node != nullptr) {
+        inOrderSeparar(node->left, a, b, i);
+        if (node->index < i) {
+            a.agregar(node->c);
+        } else if (node->index >= i){
+            b.agregar(node->c);
+        }
+        inOrderSeparar(node->right, a, b, i);
+    }
+}
+
 void super_string::inOrderReverso(nodo* node, super_string& temp) {
     if (node != nullptr) {
         inOrderReverso(node->right, temp);
         temp.agregar(node->c);
         inOrderReverso(node->left, temp);
     }
+}
+
+void super_string::inOrderTransversal(nodo* node, nodo** nodes, int& i) {
+    if (!node) return;
+
+    inOrderTransversal(node->left, nodes, i);
+    nodes[i++] = node;
+    inOrderTransversal(node->right, nodes, i);
+}
+
+super_string::nodo* super_string::buildBalancedTree(nodo** nodes, int start, int end) {
+    if (start > end) return nullptr;
+
+    int mid = (start + end) / 2;
+    nodo* node = nodes[mid];
+
+    node->left = buildBalancedTree(nodes, start, mid - 1);
+    node->right = buildBalancedTree(nodes, mid + 1, end);
+
+    return node;
+}
+
+int super_string::Altura(nodo* node) {
+    if (!node) return 0;
+    return 1 + max(Altura(node->left), Altura(node->right));
 }
