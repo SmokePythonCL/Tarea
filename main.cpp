@@ -19,7 +19,7 @@ void insertar(super_string &super_string_principal, int pos_trabajo, string line
 void reverso(super_string &super_string_principal, int pos_inicial, int pos_final) {
     super_string super_string_2, super_string_3;
     super_string_principal.separar(pos_inicial, super_string_principal, super_string_2);
-    super_string_2.separar(pos_final, super_string_2, super_string_3);
+    super_string_2.separar(pos_final - pos_inicial + 1, super_string_2, super_string_3);
     super_string_2.reverso();
     super_string_principal.juntar(super_string_2);
     super_string_principal.juntar(super_string_3);
@@ -29,7 +29,7 @@ void eliminar(super_string &super_string_principal, int pos_inicial, int pos_fin
     super_string super_string_2, super_string_3;
 
     super_string_principal.separar(pos_inicial, super_string_principal, super_string_2);
-    super_string_2.separar(pos_final, super_string_2, super_string_3);
+    super_string_2.separar(pos_final - pos_inicial + 1, super_string_2, super_string_3);
     super_string_principal.juntar(super_string_3);
 }
 
