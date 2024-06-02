@@ -25,12 +25,12 @@ class super_string {
         string stringizar(); // Debe ser O(n)
         void limpiar(); // Se deben borrar todos los nodos del super-string
 
-        void inOrderStringizar(nodo* node, string& oracion);
-        void inOrderReverso(nodo* node, super_string& temp);
-        void inOrderSeparar(nodo* node, super_string& a, super_string& b, int i);
-        void inOrderTransversal(nodo* node, nodo** nodos, int& i);
-        super_string::nodo* Balancear(nodo** nodos, int start, int end);
-        int Altura(nodo* node);
+        void inOrderStringizar(nodo* node, string& oracion); //Recorrido inOrder que agregará los caracteres al string oracion
+        void inOrderReverso(nodo* node, super_string& temp); //Recorrido inOrder inverso que agregará los caracteres al super-string temp
+        void inOrderSeparar(nodo* node, super_string& a, super_string& b, int i); //Recorrido inOrder que separará los caracteres en dos super-strings a y b
+        void inOrderTransversal(nodo* node, nodo** nodos, int& i); //Recorrido inOrder que recolectará los nodos del árbol en un arreglo de nodos
+        super_string::nodo* Balancear(nodo** nodos, int start, int end); //Recorre el arbol desde la mitad y va agregando los nodos de tal forma que el arbol queda balanceado
+        int Altura(nodo* node); //Retorna la altura del árbol
 };
 
 /*****
