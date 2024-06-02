@@ -18,7 +18,6 @@ void insertar(super_string &super_string_principal, int pos_trabajo, string line
 
 void reverso(super_string &super_string_principal, int pos_inicial, int pos_final) {
     super_string super_string_2, super_string_3;
-
     super_string_principal.separar(pos_inicial, super_string_principal, super_string_2);
     super_string_2.separar(pos_final - pos_inicial + 1, super_string_2, super_string_3);
     super_string_2.reverso();
@@ -39,7 +38,7 @@ int main() {
     string linea, oracion;
     super_string super_string_principal;
     int pos_trabajo, pos_inicial, pos_final;
-    fp.open("Prueba_1.txt");
+    fp.open("prueba.txt");
 
     if (!fp.is_open()) {
         cout << "No se pudo abrir el archivo." << endl;

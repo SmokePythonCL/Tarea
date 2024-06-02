@@ -28,8 +28,8 @@ class super_string {
         void inOrderStringizar(nodo* node, string& oracion);
         void inOrderReverso(nodo* node, super_string& temp);
         void inOrderSeparar(nodo* node, super_string& a, super_string& b, int i);
-        void inOrderTransversal(nodo* node, nodo** nodes, int& i);
-        super_string::nodo* buildBalancedTree(nodo** nodes, int start, int end);
+        void inOrderTransversal(nodo* node, nodo** nodos, int& i);
+        super_string::nodo* Balancear(nodo** nodos, int start, int end);
         int Altura(nodo* node);
 };
 
@@ -110,15 +110,16 @@ void super_string::reverso() {
     inOrderReverso(root, temp);
     limpiar();
     root = temp.root;
+    length = temp.length;
 }
 
 int super_string::recortar() {
-    nodo** nodes = new nodo*[length];
+    nodo** nodos = new nodo*[length];
     int i = 0;
-    inOrderTransversal(root, nodes, i);
-    root = buildBalancedTree(nodes, 0, length - 1);
+    inOrderTransversal(root, nodos, i);
+    root = Balancear(nodos, 0, length - 1);
     height = Altura(root);
-    delete[] nodes;
+    delete[] nodos;
 
     return height;
 }
@@ -151,22 +152,22 @@ void super_string::inOrderReverso(nodo* node, super_string& temp) {
     }
 }
 
-void super_string::inOrderTransversal(nodo* node, nodo** nodes, int& i) {
+void super_string::inOrderTransversal(nodo* node, nodo** nodos, int& i) {
     if (!node) return;
 
-    inOrderTransversal(node->left, nodes, i);
-    nodes[i++] = node;
-    inOrderTransversal(node->right, nodes, i);
+    inOrderTransversal(node->left, nodos, i);
+    nodos[i++] = node;
+    inOrderTransversal(node->right, nodos, i);
 }
 
-super_string::nodo* super_string::buildBalancedTree(nodo** nodes, int start, int end) {
-    if (start > end) return nullptr;
+super_string::nodo* super_string::Balancear(nodo** nodos, int inicio, int fin) {
+    if (inicio > fin) return nullptr;
 
-    int mid = (start + end) / 2;
-    nodo* node = nodes[mid];
+    int centro = (inicio + fin) / 2;
+    nodo* node = nodos[centro];
 
-    node->left = buildBalancedTree(nodes, start, mid - 1);
-    node->right = buildBalancedTree(nodes, mid + 1, end);
+    node->left = Balancear(nodos, inicio, centro - 1);
+    node->right = Balancear(nodos, centro + 1, fin);
 
     return node;
 }
