@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-//#include "Funciones.hpp"
 #include "TDA_SuperString.hpp"
 using namespace std;
 
