@@ -29,6 +29,7 @@ class super_string {
         void inOrderReverso(nodo* node, super_string& temp); //Recorrido inOrder inverso que agregará los caracteres al super-string temp
         void inOrderSeparar(nodo* node, super_string& a, super_string& b, int i); //Recorrido inOrder que separará los caracteres en dos super-strings a y b
         void inOrderTransversal(nodo* node, nodo** nodos, int& i); //Recorrido inOrder que recolectará los nodos del árbol en un arreglo de nodos
+        void inOrderJuntar(nodo* node, super_string& s); //Recorrido inOrder que juntará los nodos de un super-string s al final del super-string actual
         super_string::nodo* Balancear(nodo** nodos, int start, int end); //Recorre el arbol desde la mitad y va agregando los nodos de tal forma que el arbol queda balanceado
         int Altura(nodo* node); //Retorna la altura del árbol
 };
@@ -135,24 +136,8 @@ void super_string::limpiar() {
 * Returns:
 *****/
 void super_string::juntar(super_string &s) {
-    if (s.root != nullptr) {
-        if (length == 0) {
-            root = new nodo(0, s.root->c);
-            root->right = s.root->right;
-            length = s.length;
-            s.length = 0;
-            s.root = nullptr;
-        } else {
-            nodo *temp = root;
-            while (temp->right != nullptr) {
-                temp = temp->right;
-            }
-            temp->right = s.root;
-            length += s.length;
-            s.length = 0;
-            s.root = nullptr;
-        }
-    }
+    s.inOrderJuntar(s.root, *this);
+    s.limpiar();
 }
 
 /*****
@@ -274,6 +259,25 @@ void super_string::inOrderTransversal(nodo* node, nodo** nodos, int& i) {
     inOrderTransversal(node->left, nodos, i);
     nodos[i++] = node;
     inOrderTransversal(node->right, nodos, i);
+}
+
+/*****
+* void super_string::inOrderJuntar
+******
+* Recolecta los nodos del árbol y los agrega al final del super-string s mediante un recorrido inOrder
+******
+* Input:
+* nodo* node: Nodo actual
+* super_string& s: Super-string al que se le agregarán los nodos
+******
+* Returns:
+*****/
+void super_string::inOrderJuntar(nodo* node, super_string& s) {
+    if (node != nullptr) {
+        inOrderJuntar(node->left, s);
+        s.agregar(node->c);
+        inOrderJuntar(node->right, s);
+    }
 }
 
 /*****

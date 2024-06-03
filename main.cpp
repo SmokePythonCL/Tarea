@@ -19,7 +19,7 @@ using namespace std;
 void Insertar(super_string &super_string_principal, int pos_trabajo, string linea) {
     super_string super_string_2;
 
-    super_string_principal.separar(pos_trabajo, super_string_principal, super_string_principal);
+    super_string_principal.separar(pos_trabajo, super_string_principal, super_string_2);
     for (size_t i = 0; i < linea.length(); i++) {
         super_string_principal.agregar(linea[i]);
     }
