@@ -1,6 +1,2 @@
-output/
-*.code-workspace
+/output
 .vscode
-Funciones.hpp
-x
-Tarea
