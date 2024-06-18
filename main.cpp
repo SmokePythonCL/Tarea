@@ -1,13 +1,14 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <TDA_HASH.hpp>
+#include "TDA_HASH.hpp"
 using namespace std;
 
 int main() {
     ifstream fp;
     string linea, rol, nombre, descripcion;
-    registro_cuentas registro;
+    registro_cuentas cuentas;
+    cuenta actual;
     fp.open("prueba.txt");
 
     if (!fp.is_open()) {
@@ -22,6 +23,11 @@ int main() {
             fp >> rol;
             fp >> nombre;
             fp >> descripcion;
+
+            actual.rol = rol;
+            actual.nombre = nombre;
+            actual.descripcion = descripcion;
+            cuentas.agregar(actual);
             
         } else if (linea == "QUITAR") {
             fp >> rol;

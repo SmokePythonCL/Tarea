@@ -10,7 +10,7 @@ struct cuenta {
 class registro_cuentas {
     private:
         float factor_de_carga = 0.0;
-        cuenta tabla*; // Aca se almacenaran los elementos de la tabla
+        cuenta *tabla; // Aca se almacenaran los elementos de la tabla
         int ranuras = 15; // Cuantas ranuras tiene la tabla hash (inicialmente)
         int hash(string rol); // Se obtiene el hash dado el rol
         int p(string rol, int i); // Se otiene la ranura a revisar en caso de colisión dado el rol y el intento i
@@ -23,3 +23,27 @@ class registro_cuentas {
         void redimensionar(int n); // Se redimensiona la tabla a n espacios
         void estadisticas(); // Debe mostrar las estadisticas
 };
+/*
+cuenta registro_cuentas::obtener(string rol) {
+    return;
+}
+*/
+void registro_cuentas::agregar(cuenta c) {
+    return;
+}
+
+void registro_cuentas::eliminar(string rol) {
+    return;
+}
+
+void registro_cuentas::modificar(string rol, string descripcion) {
+    return;
+}
+
+void registro_cuentas::redimensionar(int n) {
+    return;
+}
+
+void registro_cuentas::estadisticas() {
+    return;
+}
