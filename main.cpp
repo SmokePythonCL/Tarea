@@ -18,7 +18,7 @@ int main() {
 
     fp >> linea;
 
-    while (!EOF) {
+    while (!fp.eof()) {
         if (linea == "AGREGAR") {
             fp >> rol;
             fp >> nombre;
@@ -41,7 +41,7 @@ int main() {
             //nombre, descripcion = ;
             cout << nombre << descripcion << endl;
         } else if (linea == "ESTADISTICAS") {
-            cout << endl;
+            cuentas.estadisticas();
         }
         fp >> linea;
     }

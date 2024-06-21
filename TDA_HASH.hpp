@@ -45,5 +45,8 @@ void registro_cuentas::redimensionar(int n) {
 }
 
 void registro_cuentas::estadisticas() {
+    cout << "RANURAS OCUPADAS: " << 1 << endl;
+    cout << "RANURAS TOTALES: " << ranuras << endl;
+    cout << "FACTOR DE CARGA: " << factor_de_carga << endl;
     return;
 }
