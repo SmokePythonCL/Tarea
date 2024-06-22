@@ -17,7 +17,7 @@ private:
     int hash(string rol); // Se obtiene el hash dado el rol
     int p(string rol, int i); // Se obtiene la ranura a revisar en caso de colisión dado el rol y el intento i
 
-    int num_ocupados;
+    int num_ocupados = 0;
 public:
     registro_cuentas() {
         tabla=new cuenta[ranuras];
@@ -98,7 +98,7 @@ void registro_cuentas::agregar(cuenta c){
         i++;
 
     } while(i<ranuras);
-    cout<<"lleno"<<endl;
+    cout<<"Lleno"<<endl;
 }
 
 void registro_cuentas::eliminar(string rol){
@@ -114,7 +114,7 @@ void registro_cuentas::eliminar(string rol){
         }
         i++;
     }while(i<ranuras);
-    cout<<"key not found" << endl;
+    cout<<"Key not found" << endl;
 }
 
 void registro_cuentas::modificar(string rol, string descripcion) {
