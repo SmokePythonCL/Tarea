@@ -32,19 +32,24 @@ int main() {
         } else if (linea == "QUITAR") {
             fp >> rol;
 
+            cuentas.eliminar(rol);
         } else if (linea == "MODIFICAR") {
             fp >> rol;
             fp >> descripcion;
 
         } else if (linea == "OBTENER") {
             fp >> rol;
-            //nombre, descripcion = ;
-            cout << nombre << descripcion << endl;
+            cuenta actual = cuentas.obtener(rol);
+            nombre = actual.nombre;
+            descripcion = actual.descripcion;
+            cout << nombre << " " << descripcion << endl;
         } else if (linea == "ESTADISTICAS") {
             cuentas.estadisticas();
         }
         fp >> linea;
+        cout << linea << endl;
     }
+    //cuentas.display();
 
     fp.close();
 }

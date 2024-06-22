@@ -16,12 +16,11 @@ private:
     int ranuras = 15; // Cuantas ranuras tiene la tabla hash (inicialmente)
     int hash(string rol); // Se obtiene el hash dado el rol
     int p(string rol, int i); // Se obtiene la ranura a revisar en caso de colisión dado el rol y el intento i
-    void rehash();
+
     int num_ocupados;
 public:
-    registro_cuentas(int size) {
-        tabla=new cuenta[size];
-        ranuras=size;
+    registro_cuentas() {
+        tabla=new cuenta[ranuras];
     } // (Recuerde que puede crear con distintos parametros)
     ~registro_cuentas();
     cuenta obtener(string rol); // Dado el rol, devuelve la cuenta con ese rol
@@ -40,6 +39,7 @@ int registro_cuentas::hash(string rol){
     for(char ch: rol){
         hashvalue = (hashvalue*31 + ch) % ranuras;
     }
+    //cout << "Hash value: " << hashvalue << endl;
     return hashvalue;
 }
 
@@ -50,34 +50,34 @@ int registro_cuentas::p(string rol, int i) {
 }
 
 float registro_cuentas::getLoadFactor() {
-    return static_cast<float>(num_ocupados) / ranuras;
+    factor_de_carga = static_cast<float>(num_ocupados) / ranuras;
+    return factor_de_carga;
 }
-
-void registro_cuentas::rehash() {
-    int oldSize = ranuras;
-    ranuras = ranuras * 2;
-    cuenta* oldTable = tabla;
-    tabla = new cuenta[ranuras];
-    num_ocupados = 0;
-    
-    for (int i = 0; i < oldSize; i++) {
-        if (oldTable[i].ocupied) {
-            agregar(oldTable[i]);
-        }
-    }
-    delete[] oldTable;
-}
-
 
 registro_cuentas::~registro_cuentas(){
     delete[] tabla;
 }
 
-void registro_cuentas::agregar(cuenta c){
-    if(getLoadFactor() >= 0.75){
-        rehash();
+
+cuenta registro_cuentas::obtener(string rol) {
+    int value = hash(rol);
+
+    while (tabla[value].rol != rol) {
+        value = p(rol, value);        
     }
 
+    if (tabla[value].rol == rol) {
+        return tabla[value];
+    } else {
+        cout << "Rol no existe." << endl;
+    }
+    
+}
+
+void registro_cuentas::agregar(cuenta c){
+    if(getLoadFactor() >= 0.75){
+        redimensionar(2);
+    }
 
     int i=0;
     int index;
@@ -91,12 +91,14 @@ void registro_cuentas::agregar(cuenta c){
             tabla[index].ocupied=true;
             num_ocupados+=1;
             return;
+        } else if (tabla[index].rol == key) {
+            cout << "Rol ya existente" << endl;
+            return;
         }
         i++;
 
     } while(i<ranuras);
-    cout<<"la wea esta llena"<<endl;
-
+    cout<<"lleno"<<endl;
 }
 
 void registro_cuentas::eliminar(string rol){
@@ -113,22 +115,27 @@ void registro_cuentas::eliminar(string rol){
     cout<<"key not found" << endl;
 }
 
-/*
-cuenta registro_cuentas::obtener(string rol) {
-    return;
-}
-*/
-
 void registro_cuentas::modificar(string rol, string descripcion) {
     return;
 }
 
 void registro_cuentas::redimensionar(int n) {
-    return;
+    int oldSize = ranuras;
+    ranuras = ranuras * n;
+    cuenta* oldTable = tabla;
+    tabla = new cuenta[ranuras];
+    num_ocupados = 0;
+    
+    for (int i = 0; i < oldSize; i++) {
+        if (oldTable[i].ocupied) {
+            agregar(oldTable[i]);
+        }
+    }
+    delete[] oldTable;
 }
 
 void registro_cuentas::estadisticas() {
-    cout << "RANURAS OCUPADAS: " << 1 << endl;
+    cout << "RANURAS OCUPADAS: " << num_ocupados << endl;
     cout << "RANURAS TOTALES: " << ranuras << endl;
     cout << "FACTOR DE CARGA: " << factor_de_carga << endl;
     return;
