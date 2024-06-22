@@ -16,9 +16,8 @@ int main() {
         return 1;
     }
 
-    fp >> linea;
-
-    while (!fp.eof()) {
+    do {
+        fp >> linea;
         if (linea == "AGREGAR") {
             fp >> rol;
             fp >> nombre;
@@ -37,8 +36,10 @@ int main() {
             fp >> rol;
             fp >> descripcion;
 
+            cuentas.modificar(rol, descripcion);
         } else if (linea == "OBTENER") {
             fp >> rol;
+
             cuenta actual = cuentas.obtener(rol);
             nombre = actual.nombre;
             descripcion = actual.descripcion;
@@ -46,9 +47,7 @@ int main() {
         } else if (linea == "ESTADISTICAS") {
             cuentas.estadisticas();
         }
-        fp >> linea;
-        cout << linea << endl;
-    }
+    } while (!fp.eof());
     //cuentas.display();
 
     fp.close();

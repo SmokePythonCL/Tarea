@@ -71,7 +71,7 @@ cuenta registro_cuentas::obtener(string rol) {
     } else {
         cout << "Rol no existe." << endl;
     }
-    
+    return cuenta();
 }
 
 void registro_cuentas::agregar(cuenta c){
@@ -108,6 +108,8 @@ void registro_cuentas::eliminar(string rol){
         index=p(rol,i);
         if(tabla[index].ocupied && tabla[index].rol ==rol){
             tabla[index].ocupied=false;
+            num_ocupados -= 1;
+            getLoadFactor();
             return;
         }
         i++;
@@ -116,6 +118,17 @@ void registro_cuentas::eliminar(string rol){
 }
 
 void registro_cuentas::modificar(string rol, string descripcion) {
+    int value = hash(rol);
+
+    while (tabla[value].rol != rol) {
+        value = p(rol, value);        
+    }
+
+    if (tabla[value].rol == rol) {
+        tabla[value].descripcion = descripcion;
+    } else {
+        cout << "Rol no existe." << endl;
+    }
     return;
 }
 
