@@ -39,7 +39,6 @@ int registro_cuentas::hash(string rol){
     for(char ch: rol){
         hashvalue = (hashvalue*31 + ch) % ranuras;
     }
-    //cout << "Hash value: " << hashvalue << endl;
     return hashvalue;
 }
 
@@ -89,7 +88,7 @@ void registro_cuentas::agregar(cuenta c){
             tabla[index].nombre=c.nombre;
             tabla[index].descripcion=c.descripcion;
             tabla[index].ocupied=true;
-            num_ocupados+=1;
+            num_ocupados += 1;
             return;
         } else if (tabla[index].rol == key) {
             cout << "Rol ya existente" << endl;
@@ -150,7 +149,7 @@ void registro_cuentas::redimensionar(int n) {
 void registro_cuentas::estadisticas() {
     cout << "RANURAS OCUPADAS: " << num_ocupados << endl;
     cout << "RANURAS TOTALES: " << ranuras << endl;
-    cout << "FACTOR DE CARGA: " << factor_de_carga << endl;
+    cout << "FACTOR DE CARGA: " << getLoadFactor() << endl;
     return;
 }
 
