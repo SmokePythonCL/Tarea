@@ -45,7 +45,7 @@ int registro_cuentas::hash(string rol){
 int registro_cuentas::p(string rol, int i) {
     int c1 = 1;
     int c2 = 3;
-    return (hash(rol) + c1 * i + c2 * i * i) % ranuras;
+    return (hash(rol) + c1 * i + c2 * i * i + 1) % ranuras;
 }
 
 float registro_cuentas::getLoadFactor() {
@@ -59,13 +59,14 @@ registro_cuentas::~registro_cuentas(){
 
 
 cuenta registro_cuentas::obtener(string rol) {
-    int value = hash(rol);
+    int value = hash(rol), i = 0;
 
-    while (tabla[value].rol != rol) {
-        value = p(rol, value);        
+    while (tabla[value].rol != rol and i != ranuras) {
+        value = p(rol, value);
+        i++;
     }
 
-    if (tabla[value].rol == rol) {
+    if (tabla[value].rol == rol and tabla[value].ocupied) {
         return tabla[value];
     } else {
         cout << "Rol no existe." << endl;

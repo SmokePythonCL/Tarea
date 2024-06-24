@@ -43,7 +43,9 @@ int main() {
             cuenta actual = cuentas.obtener(rol);
             nombre = actual.nombre;
             descripcion = actual.descripcion;
-            cout << nombre << " " << descripcion << endl;
+            if (nombre != "") {
+                cout << nombre << " " << descripcion << endl;
+            }
         } else if (linea == "ESTADISTICAS") {
             cuentas.estadisticas();
         }
