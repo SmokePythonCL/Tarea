@@ -4,6 +4,16 @@
 #include "TDA_HASH.hpp"
 using namespace std;
 
+/*****
+* int main
+******
+* Lee un archivo de texto con instrucciones, y a medida que las lee, realiza las operaciones correspondientes en un registro_cuentas
+******
+* Input:
+******
+* Returns:
+* int
+*****/
 int main() {
     ifstream fp;
     string linea, rol, nombre, descripcion;
